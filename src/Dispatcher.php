@@ -3,7 +3,7 @@
 namespace App\src;
 
 class Dispatcher {
-    public static function dispatch() {
+/*    public static function dispatch() {
         $mode = RequestHandler::getRequestParameter('mode');
         switch ($mode) {
             case 'person':
@@ -20,5 +20,5 @@ class Dispatcher {
                 $view->displayModeSelection();
                 break;
         }
-    }
+    }*/
 }
