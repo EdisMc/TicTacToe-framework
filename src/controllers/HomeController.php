@@ -3,33 +3,27 @@
 namespace App\src\controllers;
 
 use App\src\core\App;
-use App\src\core\Controller;
+use App\src\core\Request;
+use App\src\services\MultiPlayerService;
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
+    private MultiPlayerService $multiPlayerService;
 
-    public function home()
+    public function __construct(private Request $request)
     {
-        $params = [
-            'name' => "HomePage"
-        ];
+        $this->multiPlayerService = new MultiPlayerService();
+    }
+
+    public function home(): array|false|string
+    {
         return App::$app->router->renderView('home');
     }
 
-    public function player()
+    public function reset()
     {
-        $params = [];
-        return $this->render('player', $params);
+        $this->multiPlayerService->reset();
+        header('Location: ./', true, 301);
+        exit;
     }
-
-
-    public function computer()
-    {
-        return App::$app->router->renderView('computer');
-    }
-
-    public function handleComputerAction()
-    {
-        return 'Handle the Comp Action';
-    }
-
 }

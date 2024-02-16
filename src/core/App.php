@@ -2,6 +2,8 @@
 
 namespace App\src\core;
 
+use App\src\controllers\Controller;
+
 class App
 {
     public static string $ROOT_DIR;
@@ -20,7 +22,7 @@ class App
         $this->router = new Router($this->request, $this->response);
     }
 
-    public function run()
+    public function run(): void
     {
         echo $this->router->resolve();
     }

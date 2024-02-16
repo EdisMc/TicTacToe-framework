@@ -18,7 +18,7 @@ class Router
     }
 
 
-    public function get($path, $callback)
+    public function get($path, $callback): void
     {
         $this->routes['get'][$path] = $callback;
     }
@@ -31,10 +31,8 @@ class Router
     {
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
-//        dd($method);exit;
         $callback = $this->routes[$method][$path] ?? false;
 
-//        dd($callback);exit;
         if ($callback === false) {
             $this->response->setStatusCode(404);
             return $this->renderView("_404");
@@ -44,26 +42,24 @@ class Router
             return $this->renderView($callback);
         }
 
-
         if (is_array($callback)) {
 
             $callback[0] = new $callback[0]($this->request);
         }
 
-
         return call_user_func($callback, $this->request);
     }
 
-    public function renderView($view, $params = [])
+    public function renderView($view, $params = []): array|bool|string
     {
         $layoutContent = $this->layoutContent();
         $viewContent = $this->renderOnlyView($view, $params);
 
         return str_replace('{{content}}', $viewContent, $layoutContent);
-//        include_once Application::$ROOT_DIR . "/views/$view.php";
+
     }
 
-    public function renderContent($viewContent)
+    public function renderContent($viewContent): array|bool|string
     {
         $layoutContent = $this->layoutContent();
         return str_replace('{{content}}', $viewContent, $layoutContent);
@@ -73,26 +69,25 @@ class Router
      * Return the layout or throw an error
      * @return false|string
      */
-    protected function layoutContent()
+    protected function layoutContent(): bool|string
     {
         return file_get_contents(App::$ROOT_DIR . "/src/view/layouts/main.php");
 
     }
-
 
     /**
      * Return dynamically the needed view
      * @param $view
      * @return false|string
      */
-    protected function renderOnlyView($view, $params)
+    protected function renderOnlyView($view, $params): void
     {
 
         foreach ($params as $key => $value) {
             $$key = $value;
         }
-//        ob_start();
+
         include_once App::$ROOT_DIR . "/src/view/$view.php";
-//        return ob_get_clean();
+
     }
 }
