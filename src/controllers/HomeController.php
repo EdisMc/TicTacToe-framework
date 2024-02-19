@@ -3,25 +3,24 @@
 namespace App\src\controllers;
 
 use App\src\core\App;
-use App\src\core\Request;
 use App\src\services\MultiPlayerService;
 use App\src\services\SinglePlayerService;
 use JetBrains\PhpStorm\NoReturn;
 
 class HomeController extends Controller
 {
-    private MultiPlayerService $multiPlayerService;
     private SinglePlayerService $singlePlayerService;
+    private MultiPlayerService $multiPlayerService;
 
-    public function __construct(private Request $request)
+    public function __construct()
     {
-        $this->multiPlayerService = new MultiPlayerService();
         $this->singlePlayerService = new SinglePlayerService();
+        $this->multiPlayerService = new MultiPlayerService();
     }
 
     public function home(): array|false|string
     {
-        return App::$app->router->renderView('home');
+        return App::$app->controller->renderView('home');
     }
 
     #[NoReturn] public function reset(): void
@@ -31,4 +30,10 @@ class HomeController extends Controller
         exit;
     }
 
+    #[NoReturn] public function resetBot(): void
+    {
+        $this->singlePlayerService->resetBot();
+        header('Location: ./', true, 301);
+        exit;
+    }
 }

@@ -13,6 +13,7 @@ $app = new App(dirname(__DIR__));
 
 $app->router->get('/', [HomeController::class, 'home']);
 $app->router->get('/reset', [HomeController::class, 'reset']);
+$app->router->get('/reset-bot', [HomeController::class, 'resetBot']);
 $app->router->get('/multiplayer', [MultiPlayerController::class, 'multiplayer']);
 $app->router->post('/multiplayer', [MultiPlayerController::class, 'multiplayer']);
 $app->router->get('/computer', [SinglePlayerController::class, 'computer']);

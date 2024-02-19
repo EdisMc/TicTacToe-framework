@@ -16,22 +16,21 @@ class MultiPlayerController extends Controller
         $this->multiPlayerService = new MultiPlayerService();
     }
 
-    public function multiplayer(): array|false|string
+    public function player(): array|false|string
     {
         $selectedCell = $this->request->getBody()['cell'] ?? null;
 
         try {
-            if (isset($_POST['cell'])) {
-                if (is_array($selectedCell)) {
-                    $rowKeys = array_keys($selectedCell);
-                    $row = array_shift($rowKeys);
+            if (is_array($selectedCell)) {
+                $rowKeys = array_keys($selectedCell);
+                $row = array_shift($rowKeys);
 
-                    $cellKeys = array_keys($_POST['cell'][$row]);
-                    $col = array_shift($cellKeys);
+                $cellKeys = array_keys($_POST['cell'][$row]);
+                $col = array_shift($cellKeys);
 
-                    $this->multiPlayerService->setPlayersMoves($row, $col);
-                    $this->multiPlayerService->checkGameResult();
-                }
+                $this->multiPlayerService->setPlayersMoves($row, $col);
+                $this->multiPlayerService->checkGameResult();
+
             }
         } catch (Exception $exception) {
             throw new Error($exception);
@@ -41,7 +40,7 @@ class MultiPlayerController extends Controller
             'gameBoard' => $this->multiPlayerService->getBoard(),
         ];
 
-        return $this->render('multiplayer', $params);
+        return $this->render('player', $params);
     }
 
 

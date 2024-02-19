@@ -1,12 +1,3 @@
-<?php
-
-use App\src\services\MultiPlayerService;
-
-$gameResult = new MultiPlayerService();
-$gameResult->checkGameResult();
-
-?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -22,16 +13,6 @@ $gameResult->checkGameResult();
         <aside class="gap-5 d-flex align-items-center justify-content-center my-5 mx-auto">
             <h3 class="fs-3 fw-semibold">Player vs Player</h3>
         </aside>
-
-        <?php
-        if ($gameResult->checkGameResult()) {
-            echo "<h2 class='d-flex align-items-center justify-content-center mb-3'>The winner is
-                        <strong class='pl-2 fs-3 d-flex align-items-center justify-content-center'>{$gameResult->checkGameResult()}</strong>
-                    </h2>";
-        } else {
-            echo "Game is running";
-        }
-        ?>
 
         <form action="" method="post" class="d-block align-content-center mx-auto">
             <div>

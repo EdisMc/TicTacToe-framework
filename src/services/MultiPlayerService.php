@@ -25,19 +25,9 @@ class MultiPlayerService extends GameService
         }
 
         $this->checkGameResult();
+        $this->renderWinner();
 
         $_SESSION['gameBoard'] = serialize($this);
-    }
-
-    public function showWinner(): void
-    {
-        if ($this->checkGameResult()) {
-            echo "<h2 class='d-flex align-items-center justify-content-center mb-3'>The winner is
-                        <strong class='pl-2 fs-3 d-flex align-items-center justify-content-center'>{$this->checkGameResult()}</strong>
-                    </h2>";
-        } else {
-            echo "<p class='text-center fs-4 fw-medium'>The game is running</p>";
-        }
     }
 
     public function getBoard(): array
@@ -48,6 +38,17 @@ class MultiPlayerService extends GameService
     public function reset(): void
     {
         unset($_SESSION['gameBoard']);
+    }
+
+    public function renderWinner(): void
+    {
+        if ($this->checkGameResult()) {
+            echo "<h2 class='d-flex align-items-center justify-content-center mb-3'>The winner is
+                        <strong class='pl-2 fs-3 d-flex align-items-center justify-content-center'>{$this->checkGameResult()}</strong>
+                    </h2>";
+        } else {
+            echo "<p class='text-center fs-4 fw-medium'>The game is still running</p>";
+        }
     }
 
 

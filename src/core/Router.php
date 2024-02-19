@@ -2,10 +2,13 @@
 
 namespace App\src\core;
 
+use App\src\controllers\Controller;
+
 class Router
 {
     public Request $request;
     public Response $response;
+    public Controller $controller;
     protected array $routes = [];
 
     /**
@@ -36,44 +39,19 @@ class Router
 
         if ($callback === false) {
             $this->response->setStatusCode(404);
-            return $this->renderView("_404");
+
+            return $this->controller->renderView("_404");
         }
 
         if (is_string($callback)) {
-            return $this->renderView($callback);
+            return $this->controller->renderView($callback);
         }
 
         if (is_array($callback)) {
-
             $callback[0] = new $callback[0]($this->request);
         }
 
         return call_user_func($callback, $this->request);
     }
 
-    public function renderView($view, $params = []): array|bool|string
-    {
-        $layoutContent = $this->layoutContent();
-        $viewContent = $this->renderOnlyView($view, $params);
-
-        return str_replace('{{content}}', $viewContent, $layoutContent);
-
-    }
-
-    protected function layoutContent(): bool|string
-    {
-        return file_get_contents(App::$ROOT_DIR . "/src/view/layouts/main.php");
-    }
-
-
-    protected function renderOnlyView($view, $params): void
-    {
-
-        foreach ($params as $key => $value) {
-            $$key = $value;
-        }
-
-        include_once App::$ROOT_DIR . "/src/view/$view.php";
-
-    }
 }

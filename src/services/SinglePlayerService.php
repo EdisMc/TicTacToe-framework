@@ -39,23 +39,46 @@ class SinglePlayerService extends GameService
             }
         }
 
+
         if (!empty($emptyCells)) {
+
             $randIndex = array_rand($emptyCells);
 
             $randRow = $emptyCells[$randIndex];
+            if (isset($_POST['row'])) {
+                if( isset($_POST['col'])) {
+                    $this->board[$randRow['row']][$randRow['col']] = $this->player;
+                }
+            }
 
-            $this->board[$randRow['row']][$randRow['col']] = $this->player;
-            $this->player = "X" ? "O" : "X";
+            $this->player = $this->player === "X" ? "O" : "X";
         }
 
         $this->checkGameResult();
-        $_SESSION['gameBot'] = serialize($this);
+        $this->renderWinner();
 
+        $_SESSION['gameBot'] = serialize($this);
     }
 
     public function getBoard(): array
     {
         return $this->board;
+    }
+
+    public function resetBot(): void
+    {
+        unset($_SESSION['gameBot']);
+    }
+
+    public function renderWinner(): void
+    {
+        if ($this->checkGameResult()) {
+            echo "<h2 class='d-flex align-items-center justify-content-center mb-3'>The winner is
+                        <strong class='pl-2 fs-3 d-flex align-items-center justify-content-center'>{$this->checkGameResult()}</strong>
+                    </h2>";
+        } else {
+            echo "<p class='text-center fs-4 fw-medium'>The game is still running</p>";
+        }
     }
 
 }
