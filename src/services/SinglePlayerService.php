@@ -50,8 +50,8 @@ class SinglePlayerService extends GameService
         }
 
         $this->checkGameResult();
-
         $_SESSION['gameBot'] = serialize($this);
+
     }
 
     public function getBoard(): array
