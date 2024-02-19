@@ -2,15 +2,13 @@
 
 namespace App\src\core;
 
-use App\src\controllers\Controller;
-
 class App
 {
     public static string $ROOT_DIR;
     public Router $router;
     public Request $request;
     public Response $response;
-    public Controller $controller;
+
     public static App $app;
 
     public function __construct($rootPath)

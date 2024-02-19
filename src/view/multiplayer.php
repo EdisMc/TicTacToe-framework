@@ -1,6 +1,5 @@
 <?php
 
-
 use App\src\services\MultiPlayerService;
 
 $gameResult = new MultiPlayerService();
@@ -39,7 +38,6 @@ $gameResult->checkGameResult();
                 <?php
                 for ($i = 0; $i <= 2; $i++) {
                     for ($j = 0; $j <= 2; $j++) {
-                        // value='" . $gameBoard[$i][$j] . "'
                         echo "<input type='submit' data-row='$i' data-col='$j' value='" . $gameBoard[$i][$j] . "'  class='box-model' name='cell[$i][$j]'/>";
                     }
                     echo "<br>";

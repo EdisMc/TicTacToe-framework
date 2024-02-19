@@ -39,7 +39,6 @@ class SinglePlayerService extends GameService
             }
         }
 
-
         if (!empty($emptyCells)) {
             $randIndex = array_rand($emptyCells);
 

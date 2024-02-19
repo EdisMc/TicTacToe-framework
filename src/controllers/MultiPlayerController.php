@@ -30,6 +30,7 @@ class MultiPlayerController extends Controller
                     $col = array_shift($cellKeys);
 
                     $this->multiPlayerService->setPlayersMoves($row, $col);
+                    $this->multiPlayerService->checkGameResult();
                 }
             }
         } catch (Exception $exception) {

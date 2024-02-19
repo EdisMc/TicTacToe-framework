@@ -10,6 +10,7 @@ class Router
 
     /**
      * @param Request $request
+     * @param Response $response
      */
     public function __construct(Request $request, Response $response)
     {
@@ -22,7 +23,7 @@ class Router
     {
         $this->routes['get'][$path] = $callback;
     }
-    public function post($path, $callback)
+    public function post($path, $callback): void
     {
         $this->routes['post'][$path] = $callback;
     }
@@ -59,27 +60,12 @@ class Router
 
     }
 
-    public function renderContent($viewContent): array|bool|string
-    {
-        $layoutContent = $this->layoutContent();
-        return str_replace('{{content}}', $viewContent, $layoutContent);
-    }
-
-    /**
-     * Return the layout or throw an error
-     * @return false|string
-     */
     protected function layoutContent(): bool|string
     {
         return file_get_contents(App::$ROOT_DIR . "/src/view/layouts/main.php");
-
     }
 
-    /**
-     * Return dynamically the needed view
-     * @param $view
-     * @return false|string
-     */
+
     protected function renderOnlyView($view, $params): void
     {
 
