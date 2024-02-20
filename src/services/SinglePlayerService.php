@@ -55,7 +55,7 @@ class SinglePlayerService extends GameService
         }
 
         $this->checkGameResult();
-        $this->renderWinner();
+        $this->showWinner();
 
         $_SESSION['gameBot'] = serialize($this);
     }
@@ -70,14 +70,12 @@ class SinglePlayerService extends GameService
         unset($_SESSION['gameBot']);
     }
 
-    public function renderWinner(): void
+    public function showWinner(): void
     {
         if ($this->checkGameResult()) {
             echo "<h2 class='d-flex align-items-center justify-content-center mb-3'>The winner is
                         <strong class='pl-2 fs-3 d-flex align-items-center justify-content-center'>{$this->checkGameResult()}</strong>
                     </h2>";
-        } else {
-            echo "<p class='text-center fs-4 fw-medium'>The game is still running</p>";
         }
     }
 

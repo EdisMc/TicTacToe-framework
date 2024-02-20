@@ -6,18 +6,19 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\src\controllers\MultiPlayerController;
 use App\src\controllers\SinglePlayerController;
-use App\src\core\App;
 use App\src\controllers\HomeController;
+use App\src\core\App;
 
-$app = new App(dirname(__DIR__));
+//get the instance from singleton class
+$appInstance = App::getInstance(dirname(__DIR__));
 
-$app->router->get('/', [HomeController::class, 'home']);
-$app->router->get('/reset', [HomeController::class, 'reset']);
-$app->router->get('/reset-bot', [HomeController::class, 'resetBot']);
-$app->router->get('/multiplayer', [MultiPlayerController::class, 'multiplayer']);
-$app->router->post('/multiplayer', [MultiPlayerController::class, 'multiplayer']);
-$app->router->get('/computer', [SinglePlayerController::class, 'computer']);
-$app->router->post('/computer', [SinglePlayerController::class, 'computer']);
+$appInstance->router->get('/', [HomeController::class, 'home']);
+$appInstance->router->get('/reset', [HomeController::class, 'reset']);
+$appInstance->router->get('/reset-bot', [HomeController::class, 'resetBot']);
+$appInstance->router->get('/multiplayer', [MultiPlayerController::class, 'multiplayer']);
+$appInstance->router->post('/multiplayer', [MultiPlayerController::class, 'multiplayer']);
+$appInstance->router->get('/computer', [SinglePlayerController::class, 'computer']);
+$appInstance->router->post('/computer', [SinglePlayerController::class, 'computer']);
 
-$app->run();
+$appInstance->run();
 

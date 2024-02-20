@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function home(): array|false|string
     {
-        return App::$app->controller->renderView('home');
+        return App::$instance->controller->renderView('home');
     }
 
     #[NoReturn] public function reset(): void

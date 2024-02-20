@@ -16,7 +16,7 @@ class MultiPlayerController extends Controller
         $this->multiPlayerService = new MultiPlayerService();
     }
 
-    public function player(): array|false|string
+    public function multiplayer(): array|false|string
     {
         $selectedCell = $this->request->getBody()['cell'] ?? null;
 
@@ -40,7 +40,7 @@ class MultiPlayerController extends Controller
             'gameBoard' => $this->multiPlayerService->getBoard(),
         ];
 
-        return $this->render('player', $params);
+        return $this->render('multiplayer', $params);
     }
 
 

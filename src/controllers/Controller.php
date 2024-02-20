@@ -8,7 +8,7 @@ class Controller
 {
     public function render($view, $params = []): array|bool|string
     {
-        return App::$app->controller->renderView($view, $params);
+        return App::$instance->controller->renderView($view, $params);
     }
 
     public function renderView($view, $params = []): array|false|string
@@ -32,6 +32,7 @@ class Controller
         }
 
         include_once App::$ROOT_DIR . "/src/view/$view.php";
+
     }
 
 }
